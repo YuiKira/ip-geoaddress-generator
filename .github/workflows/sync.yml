@@ -15,6 +15,11 @@ jobs:
       with:
         ref: main
 
+    - name: Set Git User Info
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
     - name: Add Upstream
       run: |
         git remote add upstream https://github.com/GuooGaii/ip-geoaddress-generator
