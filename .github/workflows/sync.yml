@@ -19,5 +19,11 @@ jobs:
       run: |
         git remote add upstream https://github.com/GuooGaii/ip-geoaddress-generator
         git fetch upstream
-        git merge upstream/main --no-edit
+
+    - name: Merge Upstream Changes
+      run: |
+        git merge upstream/main --allow-unrelated-histories --no-edit
+
+    - name: Push Changes to Fork
+      run: |
         git push origin main
