@@ -27,12 +27,9 @@ jobs:
 
     - name: Merge Upstream Changes
       run: |
-        if git merge upstream/main --allow-unrelated-histories --no-edit; then
-          echo "Merge successful"
-        else
-          echo "Merge conflict detected"
-          exit 1
-        fi
+        git merge upstream/main --allow-unrelated-histories --no-edit -X theirs  # 使用上游的更改
+        # 或者
+        # git merge upstream/main --allow-unrelated-histories --no-edit -X ours  # 使用本地的更改
 
     - name: Push Changes to Fork
       run: |
