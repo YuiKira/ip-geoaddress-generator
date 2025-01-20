@@ -27,7 +27,12 @@ jobs:
 
     - name: Merge Upstream Changes
       run: |
-        git merge upstream/main --allow-unrelated-histories --no-edit
+        if git merge upstream/main --allow-unrelated-histories --no-edit; then
+          echo "Merge successful"
+        else
+          echo "Merge conflict detected"
+          exit 1
+        fi
 
     - name: Push Changes to Fork
       run: |
