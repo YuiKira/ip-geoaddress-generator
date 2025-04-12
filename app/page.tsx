@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { WFDService } from "./services/addressService";
 import type {
   User,
@@ -23,6 +23,7 @@ import {
   Separator,
 } from "@radix-ui/themes";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { ThemeContext } from "./theme-provider";
 import { UserInfo } from "./components/UserInfo";
 import { AddressInfo } from "./components/AddressInfo";
 import { AddressSelector } from "./components/AddressSelector";
@@ -129,6 +130,7 @@ const useAddressData = (): UseAddressDataReturn => {
 };
 
 export default function Home() {
+  const { theme, setTheme } = useContext(ThemeContext);
   const [inputIp, setInputIp] = useState<string>("");
   const [inputMode, setInputMode] = useState<string>("ip");
   const [selectedHistory, setSelectedHistory] = useState<string>("");
@@ -364,6 +366,30 @@ export default function Home() {
     URL.revokeObjectURL(url);
   };
 
+  const backgroundStyle = {
+    backgroundImage:
+      theme === "dark"
+        ? `linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0) 49%,
+          rgba(255, 255, 255, 0.05) 49%,
+          rgba(255, 255, 255, 0.05) 51%,
+          rgba(255, 255, 255, 0) 51%,
+          rgba(255, 255, 255, 0) 100%
+        )`
+        : `linear-gradient(
+          45deg,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0) 49%,
+          rgba(0, 0, 0, 0.08) 49%,
+          rgba(0, 0, 0, 0.08) 51%,
+          rgba(0, 0, 0, 0) 51%,
+          rgba(0, 0, 0, 0) 100%
+        )`,
+    backgroundSize: "30px 30px",
+  };
+
   const handleMessageClick = async (msg: TempMailMessage) => {
     if (!msg.source) {
       try {
@@ -398,7 +424,11 @@ export default function Home() {
 
   return (
     <Box>
-      <TopBar onInboxOpen={() => setInboxOpen(true)} />
+      <TopBar
+        theme={theme}
+        setTheme={setTheme}
+        onInboxOpen={() => setInboxOpen(true)}
+      />
 
       {/* 主要内容 */}
       <Flex
@@ -408,8 +438,7 @@ export default function Home() {
         justify="center"
         gap="4"
         style={{
-          backgroundImage: "var(--background-image)",
-          backgroundSize: "var(--background-size)",
+          ...backgroundStyle,
           paddingTop: "60px", // 为固定导航栏留出空间
         }}
       >
