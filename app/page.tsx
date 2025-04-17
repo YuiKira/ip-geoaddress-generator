@@ -22,7 +22,6 @@ import {
   Separator,
 } from "@radix-ui/themes";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { ThemeContext } from "./theme-provider";
 import { UserInfo } from "./components/UserInfo";
 import { AddressInfo } from "./components/AddressInfo";
 import { AddressSelector } from "./components/AddressSelector";
@@ -164,11 +163,7 @@ export default function Home() {
 
   return (
     <Box>
-      <TopBar
-        theme={theme}
-        setTheme={setTheme}
-        onInboxOpen={() => setInboxOpen(true)}
-      />
+      <TopBar onInboxOpen={() => setInboxOpen(true)} />
 
       {/* 主要内容 */}
       <Flex
@@ -178,7 +173,8 @@ export default function Home() {
         justify="center"
         gap="4"
         style={{
-          ...backgroundStyle,
+          backgroundImage: "var(--background-image)",
+          backgroundSize: "var(--background-size)",
           paddingTop: "60px", // 为固定导航栏留出空间
         }}
       >

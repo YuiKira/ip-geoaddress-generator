@@ -1,7 +1,6 @@
 import "@radix-ui/themes/styles.css";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
-import { ThemeProvider } from "./theme-provider";
 import { Metadata } from "next";
 import QueryProvider from "./QueryProvider";
 import ThemeWarpper from "./ThemeWarpper";
